@@ -14,11 +14,14 @@
             android:layout_height="match_parent" />
 
         <LinearLayout
+            android:id="@+id/container_check"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="16dp"
             android:background="@drawable/bg_round_btn"
             android:layout_marginBottom="50dp"
+            android:visibility="gone"
+            android:onClick="startPlayFeature"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -29,6 +32,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="12dp"
+                android:onClick="startPlayFeature"
                 android:src="@drawable/ic_check" />
 
         </LinearLayout>
@@ -36,7 +40,7 @@
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/bg_round_btn"
             android:layout_marginBottom="50dp"
             android:onClick="onClickPlusButton"
@@ -56,7 +60,7 @@
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginRight="30dp"
             android:background="@drawable/bg_round_btn"
             android:layout_marginBottom="50dp"
             app:layout_constraintBottom_toBottomOf="parent"

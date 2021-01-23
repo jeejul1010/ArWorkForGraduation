@@ -18,7 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.arworkforgraduation.R
-import com.example.arworkforgraduation.databinding.ActivityMainBinding
+import com.example.arworkforgraduation.databinding.ActivityPlayBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -26,8 +26,8 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
+class PlayActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityPlayBinding
     private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_play)
 
         // Request camera permissions
         if (allPermissionsGranted()) {
@@ -45,9 +45,6 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
-
-        // Set up the listener for take photo button
-        camera_capture_button.setOnClickListener { takePhoto() }
 
         outputDirectory = getOutputDirectory()
 
@@ -71,17 +68,17 @@ class MainActivity : AppCompatActivity() {
         // been taken
         imageCapture.takePicture(
             outputOptions, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
-                override fun onError(exc: ImageCaptureException) {
-                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
-                }
+            override fun onError(exc: ImageCaptureException) {
+                Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+            }
 
-                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val savedUri = Uri.fromFile(photoFile)
-                    val msg = "Photo capture succeeded: $savedUri"
-                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, msg)
-                }
-            })
+            override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                val savedUri = Uri.fromFile(photoFile)
+                val msg = "Photo capture succeeded: $savedUri"
+                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                Log.d(TAG, msg)
+            }
+        })
     }
 
     private fun startCamera() {
@@ -143,19 +140,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // 플러스 버튼을 눌렀을 때
     fun onClickPlusButton(view: View) {
         CategoryFragment().show(supportFragmentManager, "TAG")
-    }
-
-    // 카테고리 리스트 아이템을 클릭했을 때
-    fun onVisibleCheckButton() {
-        binding.containerCheck.visibility = View.VISIBLE
-    }
-
-    // 체크 버튼을 눌렀을 때
-    fun startPlayFeature(view: View) {
-        startActivity(Intent(this, PlayActivity::class.java))
     }
 
     override fun onDestroy() {

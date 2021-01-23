@@ -20,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class CategoryFragment : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentCategoryBinding
 
+    // 카테고리 리스트에 대한 데이터
     val categorys = listOf(
         Category(R.drawable.ic_travel, "Travel"),
         Category(R.drawable.ic_fantasy, "Fantasy"),
@@ -28,11 +29,13 @@ class CategoryFragment : BottomSheetDialogFragment() {
         Category(R.drawable.ic_game, "Game")
     )
 
+    // 상단 갤러리 리스트에 대한 데이터
     val gallerys = listOf(
         Gallery("Christmas AR", "Shall we go to the Christmas festival?"),
         Gallery("Harry Potter AR", "To the magical world with Harry Potter!")
     )
 
+    // 뷰 초기화
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             inflater,
@@ -43,6 +46,7 @@ class CategoryFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    // 바텀시트 크기에 대한 설정과 리스트를 나타내기 위한 어댑터 초기화
     override fun onResume() {
         super.onResume()
         val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -55,7 +59,12 @@ class CategoryFragment : BottomSheetDialogFragment() {
         params?.width = (deviceWidth * 1.0).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
 
-        binding.rvCategory.adapter = CategoryAdapter(categorys)
+        binding.rvCategory.adapter = CategoryAdapter(categorys, object : CategoryAdapter.ItemClickListener {
+            override fun onClickItem() {
+                (activity as MainActivity).onVisibleCheckButton()
+                dismiss()
+            }
+        })
         binding.vpCategory.adapter = GalleryAdapter(gallerys)
     }
 }
