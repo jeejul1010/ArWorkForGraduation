@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -139,6 +140,10 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    fun onClickPlusButton(view: View) {
+        CategoryFragment().show(supportFragmentManager, "TAG")
     }
 
     override fun onDestroy() {
