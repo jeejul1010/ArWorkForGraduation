@@ -1,2 +1,6 @@
-include ':app'
 rootProject.name = "ArWorkForGraduation"
+include ':app'
+include ':unityLibrary'
+project(':unityLibrary').projectDir=new File("..\\TransAndroidTest\\unityLibrary")
+include ':launcher'
+project(':launcher').projectDir=new File("..\\TransAndroidTest\\launcher")
