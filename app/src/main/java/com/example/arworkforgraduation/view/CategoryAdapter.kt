@@ -1,6 +1,7 @@
 package com.example.arworkforgraduation.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arworkforgraduation.data.model.Category
@@ -32,11 +33,12 @@ class CategoryAdapter(
         fun bind(item: Category, listener: ItemClickListener) {
             binding.item = item
             binding.ivCategory.setImageResource(item.image)
-            binding.root.setOnClickListener { listener.onClickItem() }
+            binding.root.setOnClickListener { listener.onClickItem(item.Title) }
         }
     }
 
     interface ItemClickListener {
-        fun onClickItem()
+        fun onClickItem(title: String)
+
     }
 }

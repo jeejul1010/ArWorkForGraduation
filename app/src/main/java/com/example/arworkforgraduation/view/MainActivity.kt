@@ -5,8 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.arworkforgraduation.R
 import com.example.arworkforgraduation.databinding.ActivityMainBinding
+import com.unity3d.player.UnityPlayer
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -28,16 +32,14 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
-    //private lateinit var binding : ActivityMainBinding
+    private lateinit var binding : ActivityMainBinding
     //private lateinit var outputDirectory: File
-    private lateinit var checkButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        checkButton = findViewById<Button>(R.id.check_button)
-        checkButton.visibility = View.INVISIBLE
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.checkButton.visibility = View.INVISIBLE
 
         // Request camera permissions
         if (allPermissionsGranted()) {
@@ -73,14 +75,35 @@ class MainActivity : AppCompatActivity() {
         CategoryFragment().show(supportFragmentManager, "TAG")
     }
 
-    // Check 버튼을 눌렀을 때
-    fun onClickCheckButton(view: View) {
-        CategoryFragment().show(supportFragmentManager, "TAG")
+    // category가 선택되었을 때
+    fun onCategorySelected(title: String) { //categoryName: string
+        Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
+        UnityPlayer.UnitySendMessage("Placement Indicator", "showIndicator", "true") //categoryName
+        when(title){
+            "Nature" -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Nature")
+            "Fantasy" -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Fantasy")
+        }
+
     }
 
-    // 카테고리 리스트 아이템을 클릭했을 때
-    fun onVisibleCheckButton() {
-        checkButton.visibility = View.VISIBLE
+    // Unity에서 plane을 찾았을 때
+    fun showCheckButton() {
+        binding.checkButton.visibility = View.VISIBLE
+    }
+
+    // Check 버튼을 눌렀을 때
+    fun onClickCheckButton(view: View) {
+        UnityPlayer.UnitySendMessage("", "fixPlane", "")
+
+        // hide all buttons
+        binding.checkButton.visibility = View.INVISIBLE
+        binding.cameraPlusButton.visibility = View.INVISIBLE
+        binding.cameraProfileButton.visibility = View.INVISIBLE
+    }
+
+    fun onUnityModeEnded() {
+        binding.cameraPlusButton.visibility = View.VISIBLE
+        binding.cameraProfileButton.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

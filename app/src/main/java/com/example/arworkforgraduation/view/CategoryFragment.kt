@@ -1,6 +1,7 @@
 package com.example.arworkforgraduation.view
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,9 +16,11 @@ import com.example.arworkforgraduation.R
 import com.example.arworkforgraduation.data.model.Category
 import com.example.arworkforgraduation.data.model.Gallery
 import com.example.arworkforgraduation.databinding.FragmentCategoryBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class CategoryFragment : BottomSheetDialogFragment() {
+class CategoryFragment : RoundedBottomSheetDialogFragment() {
     private lateinit var binding : FragmentCategoryBinding
 
     // 카테고리 리스트에 대한 데이터
@@ -46,10 +49,24 @@ class CategoryFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+
+    override fun onViewCreated(view:View, savedInstanceState: Bundle?)
+    {
+        super.onViewCreated(view, savedInstanceState)
+
+        val offsetFromTop = 68
+        (dialog as? BottomSheetDialog)?.behavior?.apply {
+            isFitToContents = false
+            setExpandedOffset(offsetFromTop)
+            state = BottomSheetBehavior.STATE_EXPANDED
+            skipCollapsed = true
+        }
+    }
+
     // 바텀시트 크기에 대한 설정과 리스트를 나타내기 위한 어댑터 초기화
     override fun onResume() {
         super.onResume()
-        val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        /*val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
@@ -57,14 +74,17 @@ class CategoryFragment : BottomSheetDialogFragment() {
         val params: ViewGroup.LayoutParams? = dialog?.window?.attributes
         val deviceWidth = size.x
         params?.width = (deviceWidth * 1.0).toInt()
-        dialog?.window?.attributes = params as WindowManager.LayoutParams
+        dialog?.window?.attributes = params as WindowManager.LayoutParams*/
 
         binding.rvCategory.adapter = CategoryAdapter(categorys, object : CategoryAdapter.ItemClickListener {
-            override fun onClickItem() {
-                (activity as MainActivity).onVisibleCheckButton()
+            override fun onClickItem(title: String) {
+
+                (activity as MainActivity).onCategorySelected(title)
                 dismiss()
             }
         })
         binding.vpCategory.adapter = GalleryAdapter(gallerys)
     }
+
+
 }
