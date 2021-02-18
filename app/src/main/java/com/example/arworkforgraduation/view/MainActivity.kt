@@ -77,23 +77,37 @@ class MainActivity : AppCompatActivity() {
 
     // category가 선택되었을 때
     fun onCategorySelected(title: String) { //categoryName: string
-        Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
-        UnityPlayer.UnitySendMessage("Placement Indicator", "showIndicator", "true") //categoryName
+        //Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
+
+        if(title.equals("Nature") || title.equals("Fantasy"))
+        {
+            UnityPlayer.UnitySendMessage("Placement Indicator", "showIndicator", "true")
+        }
+        else
+        {
+            Toast.makeText(applicationContext, "Not Available!", Toast.LENGTH_LONG).show()
+        }
+         //categoryName
         when(title){
             "Nature" -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Nature")
             "Fantasy" -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Fantasy")
+            else -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Else")
         }
 
     }
 
-    // Unity에서 plane을 찾았을 때
-    fun showCheckButton() {
+
+    public fun showCheckButton() {
         binding.checkButton.visibility = View.VISIBLE
+    }
+
+    public fun hideCheckButton() {
+        binding.checkButton.visibility = View.INVISIBLE
     }
 
     // Check 버튼을 눌렀을 때
     fun onClickCheckButton(view: View) {
-        UnityPlayer.UnitySendMessage("", "fixPlane", "")
+        UnityPlayer.UnitySendMessage("AR Session Origin", "ButtonOnClick", "")
 
         // hide all buttons
         binding.checkButton.visibility = View.INVISIBLE
