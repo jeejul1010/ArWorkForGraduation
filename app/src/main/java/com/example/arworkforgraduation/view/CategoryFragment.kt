@@ -29,13 +29,14 @@ class CategoryFragment : RoundedBottomSheetDialogFragment() {
         Category(R.drawable.ic_fantasy, "Fantasy"),
         Category(R.drawable.ic_king, "History"),
         Category(R.drawable.ic_nature, "Nature"),
-        Category(R.drawable.ic_game, "Game")
+        Category(R.drawable.ic_horror, "Horror")
     )
 
     // 상단 갤러리 리스트에 대한 데이터
     val gallerys = listOf(
-        Gallery("Christmas AR", "Shall we go to the Christmas festival?"),
-        Gallery("Harry Potter AR", "To the magical world with Harry Potter!")
+        Gallery(R.drawable.layer_potter,"Harry Potter AR", "To the magical world with Harry Potter!"),
+        Gallery(R.drawable.layer_santa, "Christmas AR", "Shall we go to the Christmas festival?")
+
     )
 
     // 뷰 초기화

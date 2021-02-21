@@ -33,6 +33,7 @@ class GalleryAdapter(
     class ViewHolder(val binding: ItemHorizontalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Gallery) {
             binding.item = item
+            binding.ivGallery.setImageResource(item.image)
         }
     }
 }

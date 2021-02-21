@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.cameraPlusButton.visibility = View.INVISIBLE
+        binding.cameraProfileButton.visibility = View.INVISIBLE
         binding.checkButton.visibility = View.INVISIBLE
 
         // Request camera permissions
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     fun onCategorySelected(title: String) { //categoryName: string
         //Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
 
-        if(title.equals("Nature") || title.equals("Fantasy"))
+        if(title.equals("Nature") || title.equals("Horror"))
         {
             UnityPlayer.UnitySendMessage("Placement Indicator", "showIndicator", "true")
         }
@@ -90,7 +92,7 @@ class MainActivity : AppCompatActivity() {
          //categoryName
         when(title){
             "Nature" -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Nature")
-            "Fantasy" -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Fantasy")
+            "Horror" -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Horror")
             else -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Else")
         }
 
