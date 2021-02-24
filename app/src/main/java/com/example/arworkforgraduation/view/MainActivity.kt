@@ -80,21 +80,25 @@ class MainActivity : AppCompatActivity() {
     // category가 선택되었을 때
     fun onCategorySelected(title: String) { //categoryName: string
         //Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
-
         if(title.equals("Nature") || title.equals("Horror"))
         {
+            UnityPlayer.UnitySendMessage("Placement Indicator", "showLoading", "true")
             UnityPlayer.UnitySendMessage("Placement Indicator", "showIndicator", "true")
         }
         else
         {
+            UnityPlayer.UnitySendMessage("Placement Indicator", "showLoading", "false")
             Toast.makeText(applicationContext, "Not Available!", Toast.LENGTH_LONG).show()
         }
+
          //categoryName
         when(title){
             "Nature" -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Nature")
             "Horror" -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Horror")
             else -> UnityPlayer.UnitySendMessage("AR Session Origin", "ChooseArtwork", "Else")
         }
+
+
 
     }
 
