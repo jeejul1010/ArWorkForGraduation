@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_rectangle"
+        android:width="238dp"
+        android:height="160dp" />
+
+    <item android:drawable="@drawable/couple"
+        android:width="125dp"
+        android:height="125dp"
+        android:left="30dp"
+        android:right="82dp"
+        android:gravity="bottom" />
+
+    <item android:drawable="@drawable/love_letter_1"
+        android:width="87.2dp"
+        android:height="87.2dp"
+        android:left="149.8dp"
+        android:gravity="top" />
+</layer-list>

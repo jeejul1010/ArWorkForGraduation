@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_rectangle3"
+        android:width="238dp"
+        android:height="160dp" />
+
+    <item android:drawable="@drawable/ghost"
+        android:width="101dp"
+        android:height="101dp"
+        android:left="19dp"
+        android:top="12dp"
+        android:gravity="top" />
+
+    <item android:drawable="@drawable/jack_o_lantern"
+        android:width="148dp"
+        android:height="148dp"
+        android:left="70dp"
+        android:right="70dp"
+        android:gravity="bottom" />
+
+</layer-list>

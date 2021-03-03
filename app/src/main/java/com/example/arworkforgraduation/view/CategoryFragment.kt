@@ -1,24 +1,16 @@
 package com.example.arworkforgraduation.view
 
-import android.content.Context
-import android.graphics.Color
-import android.graphics.Point
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.example.arworkforgraduation.R
 import com.example.arworkforgraduation.data.model.Category
 import com.example.arworkforgraduation.data.model.Gallery
 import com.example.arworkforgraduation.databinding.FragmentCategoryBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CategoryFragment : RoundedBottomSheetDialogFragment() {
     private lateinit var binding : FragmentCategoryBinding
@@ -34,9 +26,8 @@ class CategoryFragment : RoundedBottomSheetDialogFragment() {
 
     // 상단 갤러리 리스트에 대한 데이터
     val gallerys = listOf(
-        Gallery(R.drawable.layer_potter,"Harry Potter AR", "To the magical world with Harry Potter!"),
-        Gallery(R.drawable.layer_santa, "Christmas AR", "Shall we go to the Christmas festival?")
-
+        Gallery(R.drawable.layer_valentine,"Valentine AR", "Have a sweet Valentine's Day with us!"),
+        Gallery(R.drawable.layer_halloween,"Halloween AR", "We invite you to the Halloween festival!")
     )
 
     // 뷰 초기화
